@@ -1,15 +1,5 @@
 import { Component } from '@angular/core';
-import {
-  AbstractControl,
-  AsyncValidatorFn,
-  FormControl,
-  FormGroup,
-  NonNullableFormBuilder,
-  ValidationErrors,
-  ValidatorFn,
-  Validators,
-} from '@angular/forms';
-import { Observable, Observer } from 'rxjs';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-entry',
@@ -17,30 +7,27 @@ import { Observable, Observer } from 'rxjs';
   styleUrls: ['./entry.component.css'],
 })
 export class EntryComponent {
-  validateForm: FormGroup<{
-    // userName: FormControl<string>;
-    //email: FormControl<string>;
-    // password: FormControl<string>;
-    //  confirm: FormControl<string>;
-    // comment: FormControl<string>;
-  }>;
+  entryForm: FormGroup;
 
-  constructor(private fb: NonNullableFormBuilder) {
-    this.validateForm = this.fb.group({
-      //   userName: ['', [Validators.required], [this.userNameAsyncValidator]],
-      //  email: ['', [Validators.email, Validators.required]],
-      //  password: ['', [Validators.required]],
-      //  confirm: ['', [this.confirmValidator]],
-      //  comment: ['', [Validators.required]]
+  constructor(private fb: FormBuilder) {
+    this.entryForm = this.fb.group({
+      textInput: ['', Validators.required],
+      integerInput: [
+        null,
+        [Validators.required, Validators.pattern('^[0-9]*$')],
+      ],
+      decimalInput: [
+        null,
+        [Validators.required, Validators.pattern('^[0-9]*\\.?[0-9]+$')],
+      ],
     });
   }
 
-  submitForm(): void {
-    console.log('submit');
+  onSubmit() {
+    console.log(this.entryForm.value);
   }
 
-  resetForm(e: MouseEvent): void {
-    e.preventDefault();
+  get f() {
+    return this.entryForm.controls;
   }
-  suffixIconButton() {}
 }

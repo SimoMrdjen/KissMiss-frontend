@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { ReactiveFormsModule } from '@angular/forms'; // Import here
+//import { NgZorroAntdModule } from 'ng-zorro-antd';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -28,6 +30,8 @@ registerLocaleData(en);
     NzFormModule,
     NzInputModule,
     NzButtonModule,
+    ReactiveFormsModule, // Add to NgModule imports
+    //  NgZorroAntdModule
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent],

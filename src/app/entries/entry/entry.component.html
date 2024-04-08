@@ -1,19 +1,59 @@
-<form nz-form (ngSubmit)="submitForm()">
-  <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
-    <input type="text" nz-input placeholder="input search text" />
-  </nz-input-group>
-  <ng-template #suffixIconButton>
-    <button nz-button nzType="primary" nzSearch>
-      <span nz-icon nzType="search"></span>
-    </button>
-  </ng-template>
-  <br />
-  <br />
-
+<form nz-form [formGroup]="entryForm" (ngSubmit)="onSubmit()">
+  <!-- Text Input -->
   <nz-form-item>
-    <nz-form-control [nzOffset]="7" [nzSpan]="12">
-      <button nz-button nzType="primary" [disabled]="false">Submit</button>
-      <button nz-button (click)="resetForm($event)">Reset</button>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="textInput" nzRequired
+      >Text Input</nz-form-label
+    >
+    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please enter text!">
+      <input nz-input formControlName="textInput" id="textInput" />
+    </nz-form-control>
+  </nz-form-item>
+
+  <!-- Integer Input -->
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="integerInput" nzRequired
+      >Integer Input</nz-form-label
+    >
+    <nz-form-control
+      [nzSm]="14"
+      [nzXs]="24"
+      nzErrorTip="Please enter an integer!"
+    >
+      <input
+        nz-input
+        formControlName="integerInput"
+        id="integerInput"
+        type="number"
+      />
+    </nz-form-control>
+  </nz-form-item>
+
+  <!-- Decimal Input -->
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="decimalInput" nzRequired
+      >Decimal Input</nz-form-label
+    >
+    <nz-form-control
+      [nzSm]="14"
+      [nzXs]="24"
+      nzErrorTip="Please enter a decimal number!"
+    >
+      <input
+        nz-input
+        formControlName="decimalInput"
+        id="decimalInput"
+        type="number"
+        step="0.01"
+      />
+    </nz-form-control>
+  </nz-form-item>
+
+  <!-- Submit Button -->
+  <nz-form-item>
+    <nz-form-control [nzOffset]="6" [nzSm]="14" [nzXs]="24">
+      <button nz-button nzType="primary" [disabled]="!entryForm.valid">
+        Submit
+      </button>
     </nz-form-control>
   </nz-form-item>
 </form>
