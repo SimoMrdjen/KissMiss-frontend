@@ -1,3 +1,12 @@
+/*
+poslao sam ti sliku na whatsUp , otprilike koji inputi.
+Search input gde ce ukucati deo naziva i get metodom ce se vratiti lista artikala koja ce puniti donji dropdown.
+iz dropdown-a ce birati artikal koji ce puniti inpu cena. Trebalo bi da mogu i direktno ukucaju cenu u input. 
+Input 'komada' ce default-no biti 1.
+Submit button ce dodavati vrednosti iz inputa u novi objekat tipa Item (napravicu model),
+i taj objekat se dodaje u lokalnu listu, koja ce se iz druge forme slati post metodom na back
+*/
+
 <form nz-form [formGroup]="entryForm" (ngSubmit)="onSubmit()">
   <!-- Text Input -->
   <nz-form-item>
