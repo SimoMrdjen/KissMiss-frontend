@@ -1,68 +1,34 @@
-/*
-poslao sam ti sliku na whatsUp , otprilike koji inputi.
+<!-- poslao sam ti sliku na whatsUp , otprilike koji inputi.
 Search input gde ce ukucati deo naziva i get metodom ce se vratiti lista artikala koja ce puniti donji dropdown.
-iz dropdown-a ce birati artikal koji ce puniti inpu cena. Trebalo bi da mogu i direktno ukucaju cenu u input. 
+iz dropdown-a ce birati artikal koji ce puniti inpu cena. Trebalo bi da mogu i direktno ukucaju cenu u input.
 Input 'komada' ce default-no biti 1.
 Submit button ce dodavati vrednosti iz inputa u novi objekat tipa Item (napravicu model),
-i taj objekat se dodaje u lokalnu listu, koja ce se iz druge forme slati post metodom na back
-*/
+i taj objekat se dodaje u lokalnu listu, koja ce se iz druge forme slati post metodom na back -->
+<div class="form-container">
+  <form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="form">
+    <div>
+      <label for="search" class="form-label">Pretraga:</label>
+      <input type="text" id="search" (input)="searchProducts($event)" placeholder="Naziv artikla..." class="form-field">
+    </div>
+    <div>
+      <label for="product" class="form-label">Artikal:</label>
+      <select formControlName="product" class="form-field">
+        <option *ngFor="let product of filteredProducts" [value]="product">{{ product }}</option>
+      </select>
+    </div>
 
-<form nz-form [formGroup]="entryForm" (ngSubmit)="onSubmit()">
-  <!-- Text Input -->
-  <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="textInput" nzRequired
-      >Text Input</nz-form-label
-    >
-    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please enter text!">
-      <input nz-input formControlName="textInput" id="textInput" />
-    </nz-form-control>
-  </nz-form-item>
+    <div>
+      <label for="price" class="form-label">Cena:</label>
+      <input type="number" formControlName="price" step="0.01" class="form-field">
+    </div>
 
-  <!-- Integer Input -->
-  <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="integerInput" nzRequired
-      >Integer Input</nz-form-label
-    >
-    <nz-form-control
-      [nzSm]="14"
-      [nzXs]="24"
-      nzErrorTip="Please enter an integer!"
-    >
-      <input
-        nz-input
-        formControlName="integerInput"
-        id="integerInput"
-        type="number"
-      />
-    </nz-form-control>
-  </nz-form-item>
-
-  <!-- Decimal Input -->
-  <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="decimalInput" nzRequired
-      >Decimal Input</nz-form-label
-    >
-    <nz-form-control
-      [nzSm]="14"
-      [nzXs]="24"
-      nzErrorTip="Please enter a decimal number!"
-    >
-      <input
-        nz-input
-        formControlName="decimalInput"
-        id="decimalInput"
-        type="number"
-        step="0.01"
-      />
-    </nz-form-control>
-  </nz-form-item>
-
-  <!-- Submit Button -->
-  <nz-form-item>
-    <nz-form-control [nzOffset]="6" [nzSm]="14" [nzXs]="24">
-      <button nz-button nzType="primary" [disabled]="!entryForm.valid">
-        Submit
-      </button>
-    </nz-form-control>
-  </nz-form-item>
-</form>
+    <div>
+      <label for="amount" class="form-label">Komada:</label>
+      <input type="number" formControlName="amount" class="form-field">
+    </div>
+    <div class="btn-row">
+      <button type="submit" [disabled]="!productForm.valid" class="form-btn">Dodaj artikal</button>
+      <button type="button" (click)="getAddedProducts()" class="form-btn">Pregled</button>
+    </div>
+  </form>
+</div>

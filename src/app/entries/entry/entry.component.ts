@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -6,28 +6,35 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   templateUrl: './entry.component.html',
   styleUrls: ['./entry.component.css'],
 })
-export class EntryComponent {
-  entryForm: FormGroup;
+export class EntryComponent implements OnInit {
+  productForm!: FormGroup;
+  products: string[] = ['Artikal 1', 'Artikal 2', 'Artikal 3'];
+  filteredProducts: string[] = [];
 
-  constructor(private fb: FormBuilder) {
-    this.entryForm = this.fb.group({
-      textInput: ['', Validators.required],
-      integerInput: [
-        null,
-        [Validators.required, Validators.pattern('^[0-9]*$')],
-      ],
-      decimalInput: [
-        null,
-        [Validators.required, Validators.pattern('^[0-9]*\\.?[0-9]+$')],
-      ],
+  constructor(private fb: FormBuilder) {}
+
+  ngOnInit(): void {
+    this.productForm = this.fb.group({
+      product: ['', Validators.required],
+      price: [null, Validators.required],
+      amount: [1, [Validators.required, Validators.min(0)]],
     });
+    this.filteredProducts = this.products.slice();
   }
 
   onSubmit() {
-    console.log(this.entryForm.value);
+    console.log(this.productForm.value);
+    this.productForm.reset();
   }
 
-  get f() {
-    return this.entryForm.controls;
+  getAddedProducts() {
+    console.log(this.productForm.value);
+  }
+
+  searchProducts(event: Event) {
+    const value = (event.target as HTMLInputElement).value;
+    this.filteredProducts = this.products.filter((product) =>
+      product.toLowerCase().includes(value.toLowerCase())
+    );
   }
 }
